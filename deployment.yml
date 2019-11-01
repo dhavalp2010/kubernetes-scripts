@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-example
+  labels:
+    app: example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+    spec:
+      containers:
+      - name: example
+        image: dhaval2010/docker-example
+        env:
+        - name: ALPHABET
+          value: b
+        - name: PORT
+          value: "9002"
+        ports:
+        - containerPort: 9002
