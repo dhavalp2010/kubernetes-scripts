@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-example-svc
+  labels:
+    app: example
+spec:
+  type: LoadBalancer
+  ports:
+  - name: example-port
+    port: 9003
+    targetPort: 9003
+  selector:
+    app: example
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-example
+  labels:
+    app: example
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+    spec:
+      containers:
+      - name: example
+        image: dhaval2010/docker-example
+        env:
+        - name: ALPHABET
+          value: b
+        - name: PORT
+          value: "9003"
+        ports:
+        - containerPort: 9003
